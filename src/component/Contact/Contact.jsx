@@ -2,8 +2,12 @@ import { FaUser } from 'react-icons/fa6';
 import { FaPhoneAlt } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import css from './Contact.module.css';
+import { useDispatch } from 'react-redux';
+import { deleteContact } from '../../redux/contactsSlice';
 
-const Contact = ({ id, name, number, onDelete }) => {
+const Contact = ({ id, name, number }) => {
+  const dispatch = useDispatch();
+
   return (
     <>
       {/* Розмітка даних контакту */}
@@ -21,7 +25,7 @@ const Contact = ({ id, name, number, onDelete }) => {
       {/* Кнопка видалення контакту */}
       <button
         type="button"
-        onClick={() => onDelete(id)}
+        onClick={() => dispatch(deleteContact(id))}
         className={css.deleteBtn}
       >
         Delete
@@ -34,7 +38,6 @@ Contact.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
-  onDelete: PropTypes.func.isRequired,
 };
 
 export default Contact;

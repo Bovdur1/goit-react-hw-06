@@ -1,9 +1,11 @@
-import PropTypes from 'prop-types';
 import css from './SearchBox.module.css';
 import { useId } from 'react';
+import { useDispatch } from 'react-redux';
+import { changeFilter } from '../../redux/filtersSlice';
 
-const SearchBox = ({ value, title, handleChange }) => {
+const SearchBox = ({ title }) => {
   const searchFieldId = useId();
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -12,19 +14,14 @@ const SearchBox = ({ value, title, handleChange }) => {
       </label>
       <input
         type="text"
-        value={value}
-        onChange={e => handleChange(e.target.value)}
+        onChange={e =>
+          dispatch(changeFilter(e.target.value.toLowerCase().trim()))
+        }
         id={searchFieldId}
         className={css.search}
       />
     </>
   );
-};
-
-SearchBox.propTypes = {
-  value: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
 };
 
 export default SearchBox;
